@@ -3,11 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello</title>
+    <title>{{ title }} Grocery</title>
     <link href="{{ url_for('static', filename='styles/style.css')}}" rel="stylesheet"/>
 </head>
 <body>
-    <h1>Hello</h1>
+    <h1>{{ title }} Grocery</h1>
+    <p> {{ status }} and {{ temp }} &deg;</p>
+    <p> Feels like {{ feels_like }} &deg;</p>
+
     <form action="/grocery">
         <input type="text" name="city" id="city" placeholder="Enter a city"/>
         <button type="submit">Submit</button>
