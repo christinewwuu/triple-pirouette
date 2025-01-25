@@ -5,12 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello</title>
     <link href="{{ url_for('static', filename='styles/style.css')}}" rel="stylesheet"/>
+
+    <style>
+        /* .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            /* border: 3px solid green;  */
+        /* } */
+        /* .vertical-center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        } */
+
+    </style>
 </head>
 <body>
-    <h1>Hello</h1>
-    <form action="/grocery">
+    <div style="text-align: center; margin-top:300px">
+        <h1>Your FridgeBuddy!</h1><br>
+        <p>Find out your blah blah blah blah</p><br>
+        <a href="{{ url_for('home') }}" style="padding: 10px 20px; background-color: #45b559; color: white; text-decoration: none; border-radius: 5px;">Go to Other Page</a>
+    </div>
+    <!-- <form action="/grocery">
         <input type="text" name="city" id="city" placeholder="Enter a city"/>
         <button type="submit">Submit</button>
-    </form>
+    </form> -->
 </body>
 </html>

@@ -9,6 +9,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+@app.route('/home')
+def home():
+    return render_template("home.html")
+
 @app.route('/grocery')
 def get_grocery():
     # city = request.args.get('city')
@@ -22,4 +26,5 @@ def get_grocery():
     )
 
 if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=8000)
+    # serve(app, host="0.0.0.0", port=8000)
+    app.run(debug=True, host="0.0.0.0", port=8000)
