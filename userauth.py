@@ -58,10 +58,10 @@ def login():
                 session["user_id"] = email
                 return redirect("/home")
             else:
-                return render_template(login.html, mesage="Invalid password.")
+                return render_template(login.html, message="Invalid password.")
 
         else:
-            return render_template(login.html, mesage="No account with that email exists.")
+            return render_template(login.html, message="No account with that email exists.")
 
     return render_template("login.html")
 
