@@ -8,28 +8,94 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            /* font-family: Arial, sans-serif;
             padding: 20px;
+            display: flex;
+            gap: 20px; */
         }
-
         .container {
-            max-width: 500px;
+            width: 100%;
+            display: inline-flex;
             margin: 0 auto;
         }
+        .add-food {
+            width: 30%;
+            padding: 35px;
+            background-color: white;
+            margin: 20px;
+            border-radius: 7px;     
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;   
+        }
+        .virtual-fridge {
+            width: 70%;
+            padding: 35px;
+            background-color: white;
+            margin: 20px 20px 20px 0px;
+            border-radius: 7px;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        }
+        .add-food:hover, 
+        .virtual-fridge:hover{
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            transition: box-shadow 0.2s ease;
+        }
 
-        label {
-            font-size: 1.2em;
-            margin-bottom: 10px;
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .dropbtn:hover {
+            background-color: #45a049;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 230px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 8px 16px;
+            text-decoration: none;
             display: block;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .dropdown-content input[type="text"] {
+            width: 90%;
+            padding: 8px;
+            margin: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         button {
+            margin-top: 20px;
             padding: 10px 20px;
-            background-color: #28a745;
+            background-color: #007BFF;
             color: white;
             border: none;
             border-radius: 5px;
@@ -37,40 +103,129 @@
         }
 
         button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
+        }
+
+        #selectedIngredients {
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            width: 300px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        #selectedIngredients ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #selectedIngredients li {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        #selectedIngredients li span {
+            flex-grow: 1;
+        }
+
+        #selectedIngredients li button {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+        }
+
+        #selectedIngredients li button:hover {
+            background-color: darkred;
         }
     </style>
+
 </head>
 <body>
+    <h1 style="text-align: center; margin: 25px; margin-top: 50px">My Fridge</h1>
     <div class="container">
-        <h1>What's in Your Fridge?</h1>
-        <form action="/submit" method="post">
-            <div class="form-group">
-                <label for="ingredients">Enter your ingredients:</label>
-                <select id="ingredients" name="ingredients" multiple></select>
+        <div class="add-food">
+            <h2>Add Food</h2>
+            <form action="/submit" method="post">
+                <div class="dropdown">
+                    <button type="button" onclick="myFunction()" class="dropbtn">Select Ingredients</button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                        <a href="#" onclick="selectIngredient('Milk')">Milk</a>
+                        <a href="#" onclick="selectIngredient('Eggs')">Eggs</a>
+                        <a href="#" onclick="selectIngredient('Cheese')">Cheese</a>
+                        <a href="#" onclick="selectIngredient('Butter')">Butter</a>
+                        <a href="#" onclick="selectIngredient('Tomatoes')">Tomatoes</a>
+                        <a href="#" onclick="selectIngredient('Spinach')">Spinach</a>
+                        <a href="#" onclick="selectIngredient('Chicken')">Chicken</a>
+                        <a href="#" onclick="selectIngredient('Beef')">Beef</a>
+                        <a href="#" onclick="selectIngredient('Pasta')">Pasta</a>
+                        <a href="#" onclick="selectIngredient('Rice')">Rice</a>
+                        <a href="#" onclick="selectIngredient('Carrots')">Carrots</a>
+                        <a href="#" onclick="selectIngredient('Potatoes')">Potatoes</a>
+                        <a href="#" onclick="selectIngredient('Onions')">Onions</a>
+                        <a href="#" onclick="selectIngredient('Garlic')">Garlic</a>
+                    </div>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="virtual-fridge">
+            <h2>Virtual Fridge</h2>
+            <div id="selectedIngredients">
+                <ul></ul>
             </div>
-            <button type="submit">Submit</button>
-        </form>
+        </div>    
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const ingredientChoices = new Choices('#ingredients', {
-                placeholder: true,
-                placeholderValue: 'Start typing to search...',
-                removeItemButton: true,
-                duplicateItemsAllowed: false,
-            });
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
 
-            const availableIngredients = [
-                'Milk', 'Eggs', 'Cheese', 'Butter', 'Tomatoes', 'Spinach', 'Chicken', 
-                'Beef', 'Pasta', 'Rice', 'Carrots', 'Potatoes', 'Onions', 'Garlic'
-            ];
+    function filterFunction() {
+        const input = document.getElementById("myInput");
+        const filter = input.value.toUpperCase();
+        const div = document.getElementById("myDropdown");
+        const a = div.getElementsByTagName("a");
+        for (let i = 0; i < a.length; i++) {
+            const txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
 
-            availableIngredients.forEach(ingredient => {
-                ingredientChoices.setChoices([{ value: ingredient, label: ingredient }], 'value', 'label', false);
-            });
-        });
+    function selectIngredient(ingredient) {
+        const selectedIngredientsDiv = document.getElementById("selectedIngredients").querySelector("ul");
+        const listItem = document.createElement("li");
+        const span = document.createElement("span");
+        span.textContent = ingredient;
+
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "x";
+        removeButton.onclick = () => listItem.remove();
+
+        listItem.appendChild(span);
+        listItem.appendChild(removeButton);
+        selectedIngredientsDiv.appendChild(listItem);
+    }
     </script>
 
 </body>
