@@ -1,0 +1,17 @@
+CREATE TABLE products (
+    product VARCHAR(255),
+    green BOOL,
+    yellow BOOL,
+    red BOOL,
+    entry_date DATE,
+    expiry_date DATE);
+
+CREATE TABLE users (
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    notif BOOL,
+    D1 BOOL,
+    D2 BOOL,
+    D3 BOOL,
+    PRIMARY KEY (email)
+);
