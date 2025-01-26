@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, redirect, session
-from grocery import get_value
+# from grocery import get_value
 from waitress import serve
 import os, mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -47,12 +47,7 @@ def register():
         hashed_pw = generate_password_hash(password)
 
         # add email + hashed password to user db
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user=os.environ.get("db_user"),
-            password=os.environ.get("db_pass"),
-            database="grocerydb"
-        )
+        mydb = db_connection()
         mycursor = mydb.cursor()
         try:
             reg_query = "INSERT INTO users (email, password) VALUES (%s, %s)"

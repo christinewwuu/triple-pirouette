@@ -3,7 +3,6 @@ from dotenv import load_dotenv, dotenv_values
 from flask import Flask, request, render_template, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# load environment vars from .env file
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
@@ -22,8 +21,6 @@ def db_connection():
     )
     return db
 
-# put added groceries in db
-@app.route("/home", methods=["GET", "POST"])
-def home():
-    if request.method == "POST":
-        item = request.form.get("id")
+# request data from shelf life API
+
+
