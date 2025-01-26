@@ -3,11 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello</title>
+    <title>FridgeBuddy</title>
     <link href="{{ url_for('static', filename='styles/style.css')}}" rel="stylesheet"/>
     <style>
         body {
-            background-color: #f2f2f2;
+            background-color: #f5f5f5;
+        }
+
+        .header-banner {
+            background-image: url('static/styles/header-image.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: white; /* Ensure text is readable */
+            padding: 100px 20px; /* Add space for content */
+            min-height: 250px;
+        }
+        .header-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 450px;
+            background-color: #0b281c; /* Adjust color if needed */
+            opacity: 0.5; /* Adjust opacity (0 = fully transparent, 1 = fully opaque) */
+            z-index: 1;
+        }
+        .header-banner h1,
+        .header-banner p,
+        .header-banner .btn {
+            position: relative;
+            z-index: 2; /* Ensure content appears above the pseudo-element */
+        }
+        .header-banner h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        .header-banner p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
         }
         .features {
             display: inline-flex;
@@ -19,7 +54,7 @@
             text-align: center;
             padding: 25px;
             background-color: white;
-            border-radius: 7px;
+            border-radius: 15px;
             margin: 10px;
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         }
@@ -52,13 +87,26 @@
     </style>
 </head>
 <body>
-    <div style="text-align: center; margin-top:75px">
-        <h1>Your Grocery Shopping Companion</h1><br>
-        <p>Reduce food waste and keep your fridge organized with FridgeBuddy!</p><br><br>
-        <a href="{{ url_for('home') }}" class="btn">
-            Get Started
-        </a>
+    <!-- Nav Bar -->
+    <!-- <header>
+        <div class="nav-container">
+            <h1>FridgeBuddy</h1>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header> -->
+    <!-- Banner -->
+    <div class="header-banner">
+        <h1>Your Grocery <br>Shopping Companion</h1>
+        <p>Reduce food waste and keep your fridge organized <br> with FridgeBuddy!</p>
+        <a href="{{ url_for('home') }}" class="btn">Get Started</a>
     </div>
+    <!-- Body -->
     <div style="margin: 35px 25px ">
         <h2 style="text-align: center;">Features</h2>
         <div class="features">
