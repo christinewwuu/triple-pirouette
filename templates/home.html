@@ -3,16 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} Grocery</title>
+    <title>Home</title>
     <link href="{{ url_for('static', filename='styles/style.css')}}" rel="stylesheet"/>
 
     <style>
         body {
-            background-color: #f2f2f2;
-            /* font-family: Arial, sans-serif;
-            padding: 20px;
-            display: flex;
-            gap: 20px; */
+            background-color: #f5f5f5;
         }
         .container {
             width: 100%;
@@ -21,10 +17,11 @@
         }
         .add-food {
             width: 30%;
+            max-height: 100px;
             padding: 35px;
             background-color: white;
             margin: 20px;
-            border-radius: 7px;     
+            border-radius: 15px;     
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;   
         }
         .virtual-fridge {
@@ -32,7 +29,7 @@
             padding: 35px;
             background-color: white;
             margin: 20px 20px 20px 0px;
-            border-radius: 7px;
+            border-radius: 15px;
             box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
         }
         .add-food:hover, 
@@ -64,9 +61,11 @@
             display: none;
             position: absolute;
             background-color: #f9f9f9;
-            min-width: 230px;
+            min-width: 320px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
+            max-height: 300px;
+            overflow-y: scroll;
         }
 
         .dropdown-content a {
@@ -78,66 +77,79 @@
 
         .dropdown-content a:hover {
             background-color: #f1f1f1;
+            transition: background-color 0.2s ease;
         }
 
         .show {
             display: block;
         }
 
-        .dropdown-content input[type="text"] {
-            width: 90%;
-            padding: 8px;
-            margin: 8px;
+        input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 14px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
 
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
+            border: 1px solid #43a37c;
+            padding: 10px 20px; 
+            background-color: #43a37c; 
+            color: white; 
+            text-decoration: none; 
             border-radius: 5px;
-            cursor: pointer;
+        }
+        button:hover{
+            background-color: #2c9168;
+            transition: background-color 0.2s ease;
+        }
+        #submit-btn{
+            position: absolute;
+            top: 160px;
+            right: 60px;
         }
 
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #selectedIngredients {
-            border: 1px solid #ccc;
-            padding: 10px;
-            border-radius: 5px;
-            width: 300px;
+        .fridge-category {
+            margin-top: 15px;
+            background-color: #cfffd7;
+            padding: 25px;
+            border-radius: 10px;
+            width: 700px;
             max-height: 200px;
             overflow-y: auto;
         }
 
-        #selectedIngredients ul {
+        .fridge-category ul {
+            margin: 0px;
             list-style: none;
             padding: 0;
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping of items */
         }
 
-        #selectedIngredients li {
-            margin: 5px 0;
+        .fridge-category li {
+            margin-right: 7px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 5px;
-            border: 1px solid #ddd;
+            padding: 7px 10px;
+            border: 1px solid #949494;
             border-radius: 5px;
             background-color: #f9f9f9;
+            flex-grow: 0;
+            flex-shrink: 0;
+            font-size: 14px;
+        }
+        .fridge-category li:hover {
+            background-color: white;
+            transition: background-color 0.2s ease;
         }
 
-        #selectedIngredients li span {
-            flex-grow: 1;
-        }
-
-        #selectedIngredients li button {
-            background-color: red;
-            color: white;
+        .fridge-category li button {
+            background-color: transparent;
+            color: #949494;
             border: none;
             border-radius: 50%;
             cursor: pointer;
@@ -146,11 +158,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 0;
+            padding: 0px;
+            margin-left: 7px;
         }
 
-        #selectedIngredients li button:hover {
-            background-color: darkred;
+        .fridge-category li button:hover {
+            background-color: transparent;
+            color: #424242;
+            transition: color 0.2s ease;
         }
     </style>
 
@@ -162,9 +177,9 @@
             <h2>Add Food</h2>
             <form action="/submit" method="post">
                 <div class="dropdown">
-                    <button type="button" onclick="myFunction()" class="dropbtn">Select Ingredients</button>
+                    <!-- <button type="button" onclick="myFunction()" class="dropbtn">Select Ingredients</button> -->
+                    <input type="text" placeholder="Enter food item" onclick="myFunction()" id="myInput" onkeyup="filterFunction()">
                     <div id="myDropdown" class="dropdown-content">
-                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
                         <a href="#" onclick="selectIngredient('Milk')">Milk</a>
                         <a href="#" onclick="selectIngredient('Eggs')">Eggs</a>
                         <a href="#" onclick="selectIngredient('Cheese')">Cheese</a>
@@ -181,51 +196,71 @@
                         <a href="#" onclick="selectIngredient('Garlic')">Garlic</a>
                     </div>
                 </div>
-                <button type="submit">Submit</button>
+                <button id="submit-btn" type="submit">Save</button>
             </form>
         </div>
         <div class="virtual-fridge">
             <h2>Virtual Fridge</h2>
-            <div id="selectedIngredients">
+            <div class="fridge-category" id="selectedIngredients">
+                <h4 style="margin-top: 0px">4+ Days Until Expiry</h4>
+                <ul></ul>
+            </div>
+            <div class="fridge-category" style="background-color: #fff6ba;">
+                <h4 style="margin-top: 0px">1-3 Days Until Expiry</h4>
+                <ul></ul>
+            </div>
+            <div class="fridge-category" style="background-color: #ffc2ba;">
+                <h4 style="margin-top: 0px">Past Recommended Date</h4>
                 <ul></ul>
             </div>
         </div>    
     </div>
 
     <script>
-    function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
 
-    function filterFunction() {
-        const input = document.getElementById("myInput");
-        const filter = input.value.toUpperCase();
-        const div = document.getElementById("myDropdown");
-        const a = div.getElementsByTagName("a");
-        for (let i = 0; i < a.length; i++) {
-            const txtValue = a[i].textContent || a[i].innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                a[i].style.display = "";
-            } else {
-                a[i].style.display = "none";
+        // Hide the dropdown when clicking outside
+        window.addEventListener("click", function (event) {
+            const dropdown = document.getElementById("myDropdown");
+            const input = document.getElementById("myInput");
+
+            // Check if the click happened outside the dropdown or input field
+            if (!dropdown.contains(event.target) && !input.contains(event.target)) {
+                dropdown.classList.remove("show");
+            }
+        });
+
+        function filterFunction() {
+            const input = document.getElementById("myInput");
+            const filter = input.value.toUpperCase();
+            const div = document.getElementById("myDropdown");
+            const a = div.getElementsByTagName("a");
+            for (let i = 0; i < a.length; i++) {
+                const txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
             }
         }
-    }
 
-    function selectIngredient(ingredient) {
-        const selectedIngredientsDiv = document.getElementById("selectedIngredients").querySelector("ul");
-        const listItem = document.createElement("li");
-        const span = document.createElement("span");
-        span.textContent = ingredient;
+        function selectIngredient(ingredient) {
+            const selectedIngredientsDiv = document.getElementById("selectedIngredients").querySelector("ul");
+            const listItem = document.createElement("li");
+            const span = document.createElement("span");
+            span.textContent = ingredient;
 
-        const removeButton = document.createElement("button");
-        removeButton.textContent = "x";
-        removeButton.onclick = () => listItem.remove();
+            const removeButton = document.createElement("button");
+            removeButton.innerHTML = "&#10005";
+            removeButton.onclick = () => listItem.remove();
 
-        listItem.appendChild(span);
-        listItem.appendChild(removeButton);
-        selectedIngredientsDiv.appendChild(listItem);
-    }
+            listItem.appendChild(span);
+            listItem.appendChild(removeButton);
+            selectedIngredientsDiv.appendChild(listItem);
+        }    
     </script>
 
 </body>

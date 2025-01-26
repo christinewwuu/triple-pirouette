@@ -4,7 +4,7 @@ body,
 p,
 h1,h2,h3,
 button,
-form {
+form, a, input {
   margin: 0;
   font-family: 'Inter', 'Helvetica Neue', sans-serif;
 }
