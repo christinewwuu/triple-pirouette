@@ -1,10 +1,26 @@
-import os
+import os, mysql.connector
+from dotenv import load_dotenv, dotenv_values
 from flask import Flask, request, render_template, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
-import mysql.connector
 
+# load environment vars from .env file
+load_dotenv()
 app = Flask(__name__)
-app.secret_key = os.environ.get('fb_key')
+app.secret_key = os.getenv('SECRET_KEY')
+
+HOST=os.getenv("MYSQL_HOST")
+USER=os.getenv("MYSQL_USER")
+PASSWORD=os.getenv("MYSQL_PASSWORD")
+DATABASE=os.getenv("MYSQL_DATABASE")
+
+def db_connection():
+    db = mysql.connector.connect(
+        host=HOST,
+        user=USER,
+        password=PASSWORD,
+        database=DATABASE
+    )
+    return db
 
 # user sign up/registration
 @app.route("/register", methods=["GET", "POST"])
@@ -19,16 +35,11 @@ def register():
 
         # hash password
         hashed_pw = generate_password_hash(password)
-
         # add email + hashed password to user db
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user=os.environ.get("db_user"),
-            password=os.environ.get("db_pass"),
-            database="grocerydb"
-        )
+        mydb = db_connection()
         mycursor = mydb.cursor()
         mycursor.execute(f"INSERT INTO users (email, password) VALUES ({email}, {hashed_pw})")
+        mydb.close()
 
         return redirect("/login")
 
@@ -42,15 +53,15 @@ def login():
         password = request.form.get("password")
 
         # look up email in user db
-        mydb = mysql.connector.connect(
-            host="localhost",
-            user=os.environ.get("db_user"),
-            password=os.environ.get("db_pass"),
-            database="grocerydb"
-        )
+            # host="localhost",
+            # user=os.environ.get("db_user"),
+            # password=os.environ.get("db_pass"),
+            # database="grocerydb"
+        mydb = db_connection()
         mycursor = mydb.cursor()
         mycursor.execute(f"SELECT email, password FROM users WHERE email = {email}")
         userdata = mycursor.fetchall()
+        mydb.close()
 
         # check if email, password valid
         if userdata:
