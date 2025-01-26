@@ -1,10 +1,9 @@
-from flask import Flask, request, render_template, redirect, session
-from grocery import get_value
-from waitress import serve
 import os, mysql.connector
-from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv, dotenv_values
+from flask import Flask, request, render_template, redirect, session
+from werkzeug.security import generate_password_hash, check_password_hash
 
+# load environment vars from .env file
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
@@ -23,14 +22,6 @@ def db_connection():
     )
     return db
 
-@app.route('/')
-@app.route('/index')
-def index():
-    return render_template('index.html')
-
-@app.route('/home')
-def home():
-    return render_template("home.html")
 
 # user sign up/registration
 @app.route("/register", methods=["GET", "POST"])
@@ -108,6 +99,3 @@ def logout():
     session.clear()
     return redirect("/")
 
-if __name__ == "__main__":
-    # serve(app, host="0.0.0.0", port=8000)
-    app.run(debug=True, host="0.0.0.0", port=8000)
