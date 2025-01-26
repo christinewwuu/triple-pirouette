@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FridgeBuddy</title>
+    <link href="{{ url_for('static', filename='styles/style.css')}}" rel="stylesheet"/>
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+        .container{
+            margin: 0 auto;
+            background-color: white;
+            max-width: 400px;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            border-radius: 15px;
+            margin-top: 100px;
+            padding: 35px;
+        }
+        .container h1{
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .center-align {
+            text-align: center;
+        }
+        .container a{
+            text-align: center;
+            color: #2c9168;
+            text-decoration: none;
+            font-size: 15px;
+            margin: 0px 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .small-text{
+            font-size: 12px;
+            margin-bottom: 10px;
+            color:dimgray;
+        }
+        .btn {
+            padding: 12px 20px; 
+            background-color: #43a37c; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px;
+            border: 0px none;
+            margin: 0 auto;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .btn:hover{
+            background-color: #2c9168;
+            transition: background-color 0.2s ease;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+                <h1>Log in to your account</h1>
+                <form class="form-container" action="" method="POST">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required><br>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <div class="center-align">
+                        <button type="submit" class="btn" id="login-button">Log in</button><br><br>
+                        <a href="{{ url_for('register') }}">Don't have an account?</a>
+                    </div>                    
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+    </script>
+</body>

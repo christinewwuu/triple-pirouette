@@ -1,14 +1,13 @@
 from flask import Flask, request, render_template, redirect, session
 from grocery import get_value
 from waitress import serve
-from dotenv import load_dotenv, dotenv_values
-import os
+import os, mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
-import mysql.connector
+from dotenv import load_dotenv, dotenv_values
 
 load_dotenv()
 app = Flask(__name__)
-app.secret_key = os.environ.get('fb_key')
+app.secret_key = os.getenv('SECRET_KEY')
 
 HOST=os.getenv("MYSQL_HOST")
 USER=os.getenv("MYSQL_USER")
@@ -46,8 +45,14 @@ def register():
 
         # hash password
         hashed_pw = generate_password_hash(password)
+
         # add email + hashed password to user db
-        mydb = db_connection()
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user=os.environ.get("db_user"),
+            password=os.environ.get("db_pass"),
+            database="grocerydb"
+        )
         mycursor = mydb.cursor()
         reg_query = "INSERT INTO users (email, password) VALUES (%s, %s)"
         mycursor.execute(reg_query, (email, hashed_pw))
