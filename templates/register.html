@@ -71,6 +71,17 @@
 </head>
 
 <body>
+    <!-- Public Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('index') }}" style="color: black; text-decoration: none;">FridgeBuddy</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="{{ url_for('login') }}">Log In</a>
+            <a href="{{ url_for('register') }}">Register</a>
+        </div>
+    </nav>
+    
 
     <div class="container">
                 <h1>Create an account</h1>

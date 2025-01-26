@@ -171,6 +171,21 @@
 
 </head>
 <body>
+    <!-- Private Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('index') }}" style="color: black; text-decoration: none;">FridgeBuddy</a>
+        </div>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('home') }}">User Settings</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <a href="{{ url_for('logout') }}">Log Out</a>
+        </div>
+    </nav>
+
+
     <h1 style="text-align: center; margin: 25px; margin-top: 50px">My Fridge</h1>
     <div class="container">
         <div class="add-food">
