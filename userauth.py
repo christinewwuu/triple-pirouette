@@ -38,7 +38,8 @@ def register():
         # add email + hashed password to user db
         mydb = db_connection()
         mycursor = mydb.cursor()
-        mycursor.execute(f"INSERT INTO users (email, password) VALUES ({email}, {hashed_pw})")
+        reg_query = "INSERT INTO users (email, password) VALUES (%s, %s)"
+        mycursor.execute(reg_query, (email, hashed_pw))
         mydb.close()
 
         return redirect("/login")
@@ -59,7 +60,8 @@ def login():
             # database="grocerydb"
         mydb = db_connection()
         mycursor = mydb.cursor()
-        mycursor.execute(f"SELECT email, password FROM users WHERE email = {email}")
+        login_query = "SELECT email, password FROM users WHERE email = %s"
+        mycursor.execute(login_query, email)
         userdata = mycursor.fetchall()
         mydb.close()
 

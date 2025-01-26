@@ -54,7 +54,8 @@ def register():
             database="grocerydb"
         )
         mycursor = mydb.cursor()
-        mycursor.execute(f"INSERT INTO users (email, password) VALUES ({email}, {hashed_pw})")
+        reg_query = "INSERT INTO users (email, password) VALUES (%s, %s)"
+        mycursor.execute(reg_query, (email, hashed_pw))
 
         return redirect("/login")
 
