@@ -22,6 +22,7 @@ def db_connection():
     )
     return db
 
+
 # user sign up/registration
 @app.route("/register", methods=["GET", "POST"])
 def register():
