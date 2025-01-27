@@ -1,4 +1,4 @@
-#**FridgeBuddy**
+# **FridgeBuddy**
 
 FridgeBuddy is a web application designed to help users track their groceries, reduce food waste, and plan meals effectively. It allows users to scan their grocery haul, extract a list of items, and organize them in a virtual fridge with automated expiry tracking.
 
