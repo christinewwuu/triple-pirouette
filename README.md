@@ -1,5 +1,4 @@
-# triple-pirouette
-**FridgeBuddy**
+#**FridgeBuddy**
 
 FridgeBuddy is a web application designed to help users track their groceries, reduce food waste, and plan meals effectively. It allows users to scan their grocery haul, extract a list of items, and organize them in a virtual fridge with automated expiry tracking.
 
@@ -9,7 +8,7 @@ FridgeBuddy is a web application designed to help users track their groceries, r
 🧊 **Virtual Fridge:** Stores grocery items and categorizes them based on their expiry dates.\
 📆 **Expiry Date Tracking:** Pulls expiry information from StillTasty to estimate shelf life.\
 💡 **Waste Reduction Tips:** Provides evidence-backed advice on minimizing food waste.\
-📝 **Meal Planning:** Helps users plan meals using the items available in their fridge.\
+📝 **Meal Planning:** Helps users plan meals using the items available in their fridge.
 
 **Integrating Gumloop for Grocery Extraction**
 
